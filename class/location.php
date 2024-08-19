@@ -7,7 +7,7 @@ class Location extends Base {
     public $address = null;
 
     public function __construct($initial_id = null) {
-        $this->set_table_name('location');
+        $this->set_value('table_name','location');
         parent::__construct($initial_id);
     }
 

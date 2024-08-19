@@ -12,7 +12,7 @@ $all_objects = $all_objects->get_all();
 echo "<table>";
 
 foreach($all_objects as $this_object) {
-    echo "<tr><td><a href = 'view.php?object_type_id=" . $this_object['id'] . "'>" . $this_object['name'] . "</a></td><td><a href = 'edit.php?object_type_id=" . $this_object['id'] . "'>Add New</td></tr>";
+    echo "<tr><td><a href = 'view.php?object_type_id=" . $this_object['id'] . "'>" . $this_object['name'] . "</a></td><td><a href = 'view.php?mode=new&object_type_id=" . $this_object['id'] . "'>Add New</td></tr>";
 }
 ?>
 

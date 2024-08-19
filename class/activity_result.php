@@ -7,7 +7,7 @@ class ActivityResult extends Base {
     public $highest_wins = null;
 
     public function __construct($initial_id = null) {
-        $this->set_table_name('activity_result');
+        $this->set_value('table_name','activity_result');
         parent::__construct($initial_id);
     }
 

@@ -40,10 +40,15 @@ class Database {
             die('No connection to the database');
         }
         
+        try {
         $result = $this->connection->query($sql);
-        if (!$result === TRUE) {
-             //echo 'Error: ' . $this->connection->error . '<br>';
+        if (!$result) {
+             //throw new Exception('Query failed: ' . $this->connection->error);
              return false;
+        }
+        } catch (Exception $e) {
+            //echo 'Database error: ' . $e->getMessage();
+            return false;
         }
              
         return $result;
@@ -66,7 +71,10 @@ class Database {
     
     public function get_single_value($table,$column,$test_col,$test_val) {
         $rs = $this->get_first_result("SELECT " . $column . " FROM " . $table . " WHERE " . $test_col . " = '" . $test_val . "'");
-        return $rs[$column];
+        if($rs)
+            return $rs[$column];
+        else
+            return false;
     }
     
     public function write_note($user_id,$object_type_id,$object_id,$note_text,$date_override=null) {

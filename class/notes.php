@@ -10,7 +10,7 @@ class Note extends Base {
     public $note_text = null;
 
     public function __construct($initial_id = null) {
-        $this->set_table_name('notes');
+        $this->set_value('table_name','notes');
         parent::__construct($initial_id);
     }
 

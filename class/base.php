@@ -30,13 +30,12 @@ class Base {
         $db->close();
         return false;
     }
-    
-    public function set_table_name($name) {
-        $this->table_name = $name;
-    }
 
     public function get_value($val_name) {
-        return $this->$val_name;
+        if(isset($this->$val_name))
+            return $this->$val_name;
+    
+        return false;
     }
     
     public function get_all() {
@@ -74,7 +73,28 @@ class Base {
         }, $base_name);
     }
     
-    public function save() {
+    public function get_fk_value($base_value) {
+        $tmp = $this->get_value($base_value);
+        if(!str_ends_with($base_value,"_id") || !$tmp)
+            return false;
+        
+        $db2 = new Database();
+        $tmp_value = null;
+        $test_cols = array("name","title");
+        
+        foreach($test_cols as $this_column) {
+            $tmp_value = $db2->get_single_value(substr($base_value, 0, -3),$this_column,'id',$tmp);
+            if($tmp_value != null)
+                break;
+        }
+        
+        $db2->close();
+
+        return $tmp_value;
+        
+    }
+    
+    public function save($delete=false) {
 
         require_once('db.php');
         $db = new Database();
@@ -83,8 +103,14 @@ class Base {
         if(!$table_data)
             return false;
 
-        $upd_sql = "UPDATE " . $this->table_name . " SET ";
-        $insert_sql = "INSERT INTO " . $this->table_name . " (";
+        if($delete === "DELETE" && (int)$this->id > 0) {
+            $db->runSQL("DELETE FROM `" . $this->table_name . "` WHERE id = " . (int)$this->id);
+            $db->close();
+            return true;
+        }
+
+        $upd_sql = "UPDATE `" . $this->table_name . "` SET ";
+        $insert_sql = "INSERT INTO `" . $this->table_name . "` (";
         $col_value = array();
         $cols_array = array();
         $vals_array = array();

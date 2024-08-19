@@ -7,7 +7,7 @@ get_initial_values();
 $page_title = 'View ' . get_page_title($base_obj,$specific_obj);
 require_once('header.php');
 
-write_data($base_obj,$specific_obj,$mode);
+write_data($base_obj,$specific_obj,$mode,$edited);
 
 ?>
 

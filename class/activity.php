@@ -8,7 +8,7 @@ class Activity extends Base {
     public $activity_result_id = null;
 
     public function __construct($initial_id = null) {
-        $this->set_table_name('activity');
+        $this->set_value('table_name','activity');
         parent::__construct($initial_id);
     }
 
