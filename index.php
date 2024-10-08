@@ -7,7 +7,7 @@ require_once('class/object_type.php');
 
 
 $all_objects = new ObjectType();
-$all_objects = $all_objects->get_all();
+$all_objects = $all_objects->get_all(sort_by:"name");
 
 echo "<table>";
 

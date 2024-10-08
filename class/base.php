@@ -38,13 +38,18 @@ class Base {
         return false;
     }
     
-    public function get_all() {
+    public function get_all($sort_by=NULL) {
         if($this->table_name == null)
             return false;
 
         require_once('db.php');
         $db = new Database();
-        $all_the_objects = $db->runSQL("SELECT * FROM " . $this->table_name);
+        $sql_to_run = "SELECT * FROM " . $this->table_name;
+        
+        if($sort_by != NULL)
+            $sql_to_run .= " ORDER BY " . $sort_by;
+        
+        $all_the_objects = $db->runSQL($sql_to_run);
         $db->close();
         return $all_the_objects;
         
