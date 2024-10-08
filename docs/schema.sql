@@ -29,7 +29,56 @@ CREATE TABLE `activity` (
   `activity_result_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `activity_result_id_idx` (`activity_result_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `activity_object`
+--
+
+DROP TABLE IF EXISTS `activity_object`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `activity_object` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `activity_object_type_id` int(11) DEFAULT NULL,
+  `name` varchar(90) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `activity_object_type_id_idx` (`activity_object_type_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `activity_object_property`
+--
+
+DROP TABLE IF EXISTS `activity_object_property`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `activity_object_property` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `activity_object_id` int(11) DEFAULT NULL,
+  `name` varchar(90) DEFAULT NULL,
+  `value` varchar(90) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `activity_object_id_idx` (`activity_object_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `activity_object_type`
+--
+
+DROP TABLE IF EXISTS `activity_object_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `activity_object_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `activity_id` int(11) DEFAULT NULL,
+  `name` varchar(90) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `activity_id_idx` (`activity_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +93,7 @@ CREATE TABLE `activity_result` (
   `name` varchar(45) DEFAULT NULL,
   `highest_wins` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -61,7 +110,7 @@ CREATE TABLE `event` (
   `title` varchar(90) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `location_id_idx` (`location_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,13 +142,28 @@ CREATE TABLE `event_activities_results` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `event_activities_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `activity_result_id` int(11) DEFAULT NULL,
   `result_value` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `event_activities_id_idx` (`event_activities_id`),
-  KEY `user_id_idx` (`user_id`),
-  KEY `activity_result_id_idx` (`activity_result_id`)
+  KEY `user_id_idx` (`user_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `event_activities_results_objects`
+--
+
+DROP TABLE IF EXISTS `event_activities_results_objects`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `event_activities_results_objects` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `event_activities_results_id` int(11) DEFAULT NULL,
+  `activity_object_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `event_activities_results_id_idx` (`event_activities_results_id`),
+  KEY `activity_object_id_idx` (`activity_object_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -131,7 +195,7 @@ CREATE TABLE `location` (
   `name` varchar(90) DEFAULT NULL,
   `address` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -151,7 +215,7 @@ CREATE TABLE `notes` (
   PRIMARY KEY (`id`),
   KEY `user_id_idx` (`user_id`),
   KEY `object_type_id_idx` (`object_type_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -166,7 +230,7 @@ CREATE TABLE `object_type` (
   `name` varchar(90) DEFAULT NULL,
   `base_table_name` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -180,7 +244,7 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -192,4 +256,4 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-08-07 14:36:22
+-- Dump completed on 2024-10-08 13:07:40

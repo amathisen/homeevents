@@ -29,7 +29,7 @@ CREATE TABLE `activity` (
   `activity_result_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `activity_result_id_idx` (`activity_result_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,8 +38,86 @@ CREATE TABLE `activity` (
 
 LOCK TABLES `activity` WRITE;
 /*!40000 ALTER TABLE `activity` DISABLE KEYS */;
-INSERT INTO `activity` VALUES (1,'Magic - Commander','A game of Magic the Gathering Commander',2),(2,'Cornhole','A game of cornhole',3),(3,'Go First D20 Dice Roll','A roll of the dice',1);
+INSERT INTO `activity` VALUES (4,'Magic the Gathering - Commander','A game of commander. No banlist, proxies okay',6),(5,'Go First Dice Roll','Highest roll goes 1st!',5),(6,'Go First Dice Re-Roll','Ties are broken here',5),(7,'Mulligan','Count of mulligans taken',7);
 /*!40000 ALTER TABLE `activity` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `activity_object`
+--
+
+DROP TABLE IF EXISTS `activity_object`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `activity_object` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `activity_object_type_id` int(11) DEFAULT NULL,
+  `name` varchar(90) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `activity_object_type_id_idx` (`activity_object_type_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `activity_object`
+--
+
+LOCK TABLES `activity_object` WRITE;
+/*!40000 ALTER TABLE `activity_object` DISABLE KEYS */;
+INSERT INTO `activity_object` VALUES (1,1,'Tergrid, God of Fright');
+/*!40000 ALTER TABLE `activity_object` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `activity_object_property`
+--
+
+DROP TABLE IF EXISTS `activity_object_property`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `activity_object_property` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `activity_object_id` int(11) DEFAULT NULL,
+  `name` varchar(90) DEFAULT NULL,
+  `value` varchar(90) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `activity_object_id_idx` (`activity_object_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `activity_object_property`
+--
+
+LOCK TABLES `activity_object_property` WRITE;
+/*!40000 ALTER TABLE `activity_object_property` DISABLE KEYS */;
+/*!40000 ALTER TABLE `activity_object_property` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `activity_object_type`
+--
+
+DROP TABLE IF EXISTS `activity_object_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `activity_object_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `activity_id` int(11) DEFAULT NULL,
+  `name` varchar(90) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `activity_id_idx` (`activity_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `activity_object_type`
+--
+
+LOCK TABLES `activity_object_type` WRITE;
+/*!40000 ALTER TABLE `activity_object_type` DISABLE KEYS */;
+INSERT INTO `activity_object_type` VALUES (1,4,'Commander Deck');
+/*!40000 ALTER TABLE `activity_object_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -54,7 +132,7 @@ CREATE TABLE `activity_result` (
   `name` varchar(45) DEFAULT NULL,
   `highest_wins` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,7 +141,7 @@ CREATE TABLE `activity_result` (
 
 LOCK TABLES `activity_result` WRITE;
 /*!40000 ALTER TABLE `activity_result` DISABLE KEYS */;
-INSERT INTO `activity_result` VALUES (1,'D20 Result',1),(2,'Placement',0),(3,'Points',1);
+INSERT INTO `activity_result` VALUES (5,'D20 Result',1),(6,'Placement',0),(7,'Mulligan Count',0);
 /*!40000 ALTER TABLE `activity_result` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,7 +159,7 @@ CREATE TABLE `event` (
   `title` varchar(90) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `location_id_idx` (`location_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -90,7 +168,7 @@ CREATE TABLE `event` (
 
 LOCK TABLES `event` WRITE;
 /*!40000 ALTER TABLE `event` DISABLE KEYS */;
-INSERT INTO `event` VALUES (1,1,'2024-01-01 00:00:00','test magic1 andrews'),(2,1,'2024-01-01 00:00:00','test magic2 andrews'),(3,1,'2024-01-01 00:00:00','test multiple andrews'),(4,2,'2024-01-01 00:00:00','test magic1 kenyon'),(5,2,'2024-01-01 00:00:00','test magic2 kenyon');
+INSERT INTO `event` VALUES (6,3,'2024-08-11 00:00:00','3 player commander'),(7,3,'2024-08-18 00:00:00','3 player commander'),(8,3,'2024-09-01 00:00:00','3 player commander'),(9,3,'2024-09-15 00:00:00','3 player commander'),(10,4,'2024-09-29 00:00:00','3 player commander');
 /*!40000 ALTER TABLE `event` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -118,7 +196,6 @@ CREATE TABLE `event_activities` (
 
 LOCK TABLES `event_activities` WRITE;
 /*!40000 ALTER TABLE `event_activities` DISABLE KEYS */;
-INSERT INTO `event_activities` VALUES (1,'Game 1',1,3),(2,'Game 1',1,1),(3,'Game 2',1,3),(4,'Game 2',1,1),(5,'Game 1',3,3),(6,'Game 1',3,1),(7,'Exercise',3,2);
 /*!40000 ALTER TABLE `event_activities` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -133,12 +210,10 @@ CREATE TABLE `event_activities_results` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `event_activities_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `activity_result_id` int(11) DEFAULT NULL,
   `result_value` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `event_activities_id_idx` (`event_activities_id`),
-  KEY `user_id_idx` (`user_id`),
-  KEY `activity_result_id_idx` (`activity_result_id`)
+  KEY `user_id_idx` (`user_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -148,8 +223,33 @@ CREATE TABLE `event_activities_results` (
 
 LOCK TABLES `event_activities_results` WRITE;
 /*!40000 ALTER TABLE `event_activities_results` DISABLE KEYS */;
-INSERT INTO `event_activities_results` VALUES (1,1,1,1,'5'),(2,1,2,1,'10'),(3,1,3,1,'15'),(4,1,4,1,'20'),(5,1,5,1,'1'),(6,2,1,2,'1'),(7,2,2,2,'2'),(8,2,3,2,'3'),(9,2,4,2,'4'),(10,2,5,2,'5'),(11,1,5,1,'5'),(12,1,4,1,'10'),(13,1,3,1,'15'),(14,1,2,1,'20'),(15,1,1,1,'1'),(16,2,5,2,'1'),(17,2,4,2,'2'),(18,2,3,2,'3'),(19,2,2,2,'4'),(20,2,1,2,'5'),(21,3,1,1,'3'),(22,3,2,1,'8'),(23,3,3,1,'13'),(24,3,4,1,'18'),(25,3,5,1,'1'),(26,4,1,2,'2'),(27,4,2,2,'3'),(28,4,3,2,'4'),(29,4,4,2,'5'),(30,4,5,2,'1');
 /*!40000 ALTER TABLE `event_activities_results` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `event_activities_results_objects`
+--
+
+DROP TABLE IF EXISTS `event_activities_results_objects`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `event_activities_results_objects` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `event_activities_results_id` int(11) DEFAULT NULL,
+  `activity_object_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `event_activities_results_id_idx` (`event_activities_results_id`),
+  KEY `activity_object_id_idx` (`activity_object_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `event_activities_results_objects`
+--
+
+LOCK TABLES `event_activities_results_objects` WRITE;
+/*!40000 ALTER TABLE `event_activities_results_objects` DISABLE KEYS */;
+/*!40000 ALTER TABLE `event_activities_results_objects` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -175,7 +275,6 @@ CREATE TABLE `event_users` (
 
 LOCK TABLES `event_users` WRITE;
 /*!40000 ALTER TABLE `event_users` DISABLE KEYS */;
-INSERT INTO `event_users` VALUES (1,1,1),(2,1,2),(3,1,3),(4,1,4),(5,1,5),(6,3,1),(7,3,2),(8,3,3),(9,3,4),(10,3,5);
 /*!40000 ALTER TABLE `event_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -191,7 +290,7 @@ CREATE TABLE `location` (
   `name` varchar(90) DEFAULT NULL,
   `address` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -200,7 +299,7 @@ CREATE TABLE `location` (
 
 LOCK TABLES `location` WRITE;
 /*!40000 ALTER TABLE `location` DISABLE KEYS */;
-INSERT INTO `location` VALUES (1,'test andrews','maple valley'),(2,'test kenyons','renton');
+INSERT INTO `location` VALUES (3,'Andrew','Maple Valley'),(4,'Kenyon','Renton');
 /*!40000 ALTER TABLE `location` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -221,7 +320,7 @@ CREATE TABLE `notes` (
   PRIMARY KEY (`id`),
   KEY `user_id_idx` (`user_id`),
   KEY `object_type_id_idx` (`object_type_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -230,7 +329,6 @@ CREATE TABLE `notes` (
 
 LOCK TABLES `notes` WRITE;
 /*!40000 ALTER TABLE `notes` DISABLE KEYS */;
-INSERT INTO `notes` VALUES (1,1,'2024-08-06 21:03:41',1,1,'andrews house');
 /*!40000 ALTER TABLE `notes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -246,7 +344,7 @@ CREATE TABLE `object_type` (
   `name` varchar(90) DEFAULT NULL,
   `base_table_name` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -255,7 +353,7 @@ CREATE TABLE `object_type` (
 
 LOCK TABLES `object_type` WRITE;
 /*!40000 ALTER TABLE `object_type` DISABLE KEYS */;
-INSERT INTO `object_type` VALUES (1,'Location','location'),(2,'Event','event'),(3,'Object Type','object_type'),(4,'Event Activities','event_activities'),(5,'Event Users','event_users'),(6,'Event Activities Results','event_activities_results'),(7,'Activity','activity'),(8,'Activity Result','activity_result'),(9,'User','user');
+INSERT INTO `object_type` VALUES (10,'Activity','activity'),(11,'Activity Result','activity_result'),(12,'Event','event'),(13,'Event Activities','event_activities'),(14,'Event Activities Results','event_activities_results'),(15,'Event Users','event_users'),(16,'Location','location'),(17,'Notes','notes'),(18,'Object Type','object_type'),(19,'User','user'),(20,'Activity Object Type','activity_object_type'),(21,'Activity Object','activity_object'),(22,'Activity Object Property','activity_object_property'),(23,'Event Activities Results Objects','event_activities_results_objects');
 /*!40000 ALTER TABLE `object_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -270,7 +368,7 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -279,7 +377,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Aaron'),(2,'Andrew'),(3,'Evan'),(4,'James'),(5,'Kenyon');
+INSERT INTO `user` VALUES (9,'Aaron'),(10,'Andrew'),(11,'Evan'),(12,'Kenyon');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -292,4 +390,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-08-07 14:36:03
+-- Dump completed on 2024-10-08 13:12:49
