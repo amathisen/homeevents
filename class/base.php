@@ -47,12 +47,12 @@ class Base {
         $all_objects = array();
         require_once('class/db.php');
         $db = new Database();
-        $sql_to_run = "SELECT * FROM " . $this->table_name;
+        $sql_to_run = "SELECT id FROM " . $this->table_name;
         
         if($sort_by != NULL)
             $sql_to_run .= " ORDER BY " . $sort_by;
         $all_the_objects = $db->runSQL($sql_to_run);
-        
+
         foreach($all_the_objects as $this_object) {
             $class_name = $this::class;
             $tmp = new $class_name($this_object['id']);

@@ -66,18 +66,19 @@ function get_form_value($value_name) {
 function write_fk_select($field_name,$default_value=null) {
     $select_html = "<select name='" . $field_name . "' id='" . $field_name . "'>";
     $db = new Database();
-    $all_the_things = new Base();
-    $all_the_things->set_value("table_name",substr($field_name, 0, -3));
+    $class_name = str_replace(" ","",$db->get_single_value('object_type','name','base_table_name',substr($field_name, 0, -3)));
+    require_once('class/' . substr($field_name, 0, -3) . '.php');
+    $all_the_things = new $class_name();
     $all_the_things = $all_the_things->get_all();
     $test_cols = array("name","title","event_activities_id");
     
     foreach($all_the_things as $this_thing) {
         foreach($test_cols as $this_col) {
-            if(isset($this_thing[$this_col])) {
-                $select_html .= "<option value='" . $this_thing['id'] . "'";
-                if($this_thing['id'] == $default_value)
+            if(isset($this_thing->$this_col)) {
+                $select_html .= "<option value='" . $this_thing->id . "'";
+                if($this_thing->id == $default_value)
                     $select_html .= " SELECTED";
-                $select_html .= ">" . $this_thing[$this_col] . " (" . $this_thing['id'] . ")</option>";
+                $select_html .= ">" . $this_thing->$this_col . " (" . $this_thing->id . ")</option>";
             }
         }
     }
@@ -87,19 +88,16 @@ function write_fk_select($field_name,$default_value=null) {
 }
 
 function write_data($base_obj,$specific_obj,$mode,$edited=null) {
-        
     if($mode != "new" && ($specific_obj == null || !isset($specific_obj->id) || (int)$specific_obj->id <= 0)) {
-        require_once('class/base.php');
-        $all_the_things = new Base();
-        $all_the_things->set_value("table_name",$base_obj->base_table_name);
+        $class_name = str_replace(" ","",$base_obj->name);
+        $all_the_things = new $class_name();
         $all_the_things = $all_the_things->get_all();
-        
         
         echo "<table>";
         foreach($all_the_things as $this_thing) {
             echo "<tr>";
-            echo "<td><a href = 'view.php?object_type_id=" . $base_obj->id . "&object_id=" . $this_thing['id'] . "&mode=edit'>Edit</a></td>";
-            echo "<td><a href = 'view.php?object_type_id=" . $base_obj->id . "&object_id=" . $this_thing['id'] . "&mode=view'>View</a></td>";
+            echo "<td><a href = 'view.php?object_type_id=" . $base_obj->id . "&object_id=" . $this_thing->id . "&mode=edit'>Edit</a></td>";
+            echo "<td><a href = 'view.php?object_type_id=" . $base_obj->id . "&object_id=" . $this_thing->id . "&mode=view'>View</a></td>";
             foreach($this_thing as $key => $value)
                 echo "<td><b>" . $key . "</b></td><td>" . $value . "</td>";
             echo "</tr>";
