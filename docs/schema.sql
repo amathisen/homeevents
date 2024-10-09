@@ -45,7 +45,7 @@ CREATE TABLE `activity_object` (
   `name` varchar(90) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `activity_object_type_id_idx` (`activity_object_type_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,7 +128,7 @@ CREATE TABLE `event_activities` (
   PRIMARY KEY (`id`),
   KEY `event_id_idx` (`event_id`),
   KEY `activity_id_idx` (`activity_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -146,7 +146,7 @@ CREATE TABLE `event_activities_results` (
   PRIMARY KEY (`id`),
   KEY `event_activities_id_idx` (`event_activities_id`),
   KEY `user_id_idx` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -163,7 +163,7 @@ CREATE TABLE `event_activities_results_objects` (
   PRIMARY KEY (`id`),
   KEY `event_activities_results_id_idx` (`event_activities_results_id`),
   KEY `activity_object_id_idx` (`activity_object_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -180,7 +180,7 @@ CREATE TABLE `event_users` (
   PRIMARY KEY (`id`),
   KEY `event_id_idx` (`event_id`),
   KEY `user_id_idx` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -256,4 +256,4 @@ CREATE TABLE `user` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-08 13:07:40
+-- Dump completed on 2024-10-08 17:09:12

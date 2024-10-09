@@ -11,7 +11,6 @@ class EventActivities extends Base {
         $this->set_value('table_name','event_activities');
         parent::__construct($initial_id);
     }
-
 }
 
 ?>

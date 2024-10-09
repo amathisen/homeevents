@@ -25,7 +25,8 @@ class Base {
             }
             $db->close();
             return true;
-        }
+        } else
+            $this->id = null;
         
         $db->close();
         return false;

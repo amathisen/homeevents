@@ -39,7 +39,7 @@ class Database {
         if (!$this->connection) {
             die('No connection to the database');
         }
-        
+
         try {
         $result = $this->connection->query($sql);
         if (!$result) {
@@ -50,7 +50,7 @@ class Database {
             //echo 'Database error: ' . $e->getMessage();
             return false;
         }
-             
+
         return $result;
     }
     

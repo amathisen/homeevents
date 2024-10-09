@@ -55,7 +55,7 @@ CREATE TABLE `activity_object` (
   `name` varchar(90) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `activity_object_type_id_idx` (`activity_object_type_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,7 +64,7 @@ CREATE TABLE `activity_object` (
 
 LOCK TABLES `activity_object` WRITE;
 /*!40000 ALTER TABLE `activity_object` DISABLE KEYS */;
-INSERT INTO `activity_object` VALUES (1,1,'Tergrid, God of Fright');
+INSERT INTO `activity_object` VALUES (1,1,'Tergrid, God of Fright'),(2,1,'Oloro, Ageless Ascetic'),(3,1,'Anowon, the Ruin Thief'),(4,1,'Korvold, Fae-Cursed King'),(5,1,'Zhulodok, Void Gorger'),(6,1,'Xenagos, God of Revels'),(7,1,'Edgar Markov'),(8,1,'Hylda of the Icy Crown');
 /*!40000 ALTER TABLE `activity_object` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -168,7 +168,7 @@ CREATE TABLE `event` (
 
 LOCK TABLES `event` WRITE;
 /*!40000 ALTER TABLE `event` DISABLE KEYS */;
-INSERT INTO `event` VALUES (6,3,'2024-08-11 00:00:00','3 player commander'),(7,3,'2024-08-18 00:00:00','3 player commander'),(8,3,'2024-09-01 00:00:00','3 player commander'),(9,3,'2024-09-15 00:00:00','3 player commander'),(10,4,'2024-09-29 00:00:00','3 player commander');
+INSERT INTO `event` VALUES (6,3,'2024-08-11 00:00:00','3 player commander');
 /*!40000 ALTER TABLE `event` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -187,7 +187,7 @@ CREATE TABLE `event_activities` (
   PRIMARY KEY (`id`),
   KEY `event_id_idx` (`event_id`),
   KEY `activity_id_idx` (`activity_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -196,6 +196,7 @@ CREATE TABLE `event_activities` (
 
 LOCK TABLES `event_activities` WRITE;
 /*!40000 ALTER TABLE `event_activities` DISABLE KEYS */;
+INSERT INTO `event_activities` VALUES (8,'Game 1',6,5),(9,'Game 1',6,7),(10,'Game 1',6,4),(11,'Game 2',6,5),(12,'Game 2',6,7),(13,'Game 2',6,4),(14,'Game 3',6,5),(15,'Game 3',6,7),(16,'Game 3',6,4);
 /*!40000 ALTER TABLE `event_activities` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -214,7 +215,7 @@ CREATE TABLE `event_activities_results` (
   PRIMARY KEY (`id`),
   KEY `event_activities_id_idx` (`event_activities_id`),
   KEY `user_id_idx` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -223,6 +224,7 @@ CREATE TABLE `event_activities_results` (
 
 LOCK TABLES `event_activities_results` WRITE;
 /*!40000 ALTER TABLE `event_activities_results` DISABLE KEYS */;
+INSERT INTO `event_activities_results` VALUES (31,8,9,'17'),(32,8,10,'20'),(33,8,11,'5'),(34,9,9,'1'),(35,10,9,'1'),(36,10,10,'2'),(37,10,11,'3'),(38,11,9,'10'),(39,11,10,'7'),(40,11,11,'14'),(41,12,10,'1'),(42,13,9,'2'),(43,13,10,'1'),(44,13,11,'2'),(45,14,9,'5'),(46,14,10,'15'),(47,14,11,'16'),(48,16,9,'3'),(49,16,10,'1'),(50,16,11,'2');
 /*!40000 ALTER TABLE `event_activities_results` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -240,7 +242,7 @@ CREATE TABLE `event_activities_results_objects` (
   PRIMARY KEY (`id`),
   KEY `event_activities_results_id_idx` (`event_activities_results_id`),
   KEY `activity_object_id_idx` (`activity_object_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -249,6 +251,7 @@ CREATE TABLE `event_activities_results_objects` (
 
 LOCK TABLES `event_activities_results_objects` WRITE;
 /*!40000 ALTER TABLE `event_activities_results_objects` DISABLE KEYS */;
+INSERT INTO `event_activities_results_objects` VALUES (1,35,1),(2,36,2),(3,37,3),(4,42,4),(5,43,2),(6,44,3),(7,48,5),(8,49,6),(9,50,3);
 /*!40000 ALTER TABLE `event_activities_results_objects` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -266,7 +269,7 @@ CREATE TABLE `event_users` (
   PRIMARY KEY (`id`),
   KEY `event_id_idx` (`event_id`),
   KEY `user_id_idx` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -275,6 +278,7 @@ CREATE TABLE `event_users` (
 
 LOCK TABLES `event_users` WRITE;
 /*!40000 ALTER TABLE `event_users` DISABLE KEYS */;
+INSERT INTO `event_users` VALUES (11,6,9),(12,6,10),(13,6,11);
 /*!40000 ALTER TABLE `event_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -299,7 +303,7 @@ CREATE TABLE `location` (
 
 LOCK TABLES `location` WRITE;
 /*!40000 ALTER TABLE `location` DISABLE KEYS */;
-INSERT INTO `location` VALUES (3,'Andrew','Maple Valley'),(4,'Kenyon','Renton');
+INSERT INTO `location` VALUES (3,'Andrew\'s place','Maple Valley'),(4,'Kenyon\'s place','Renton');
 /*!40000 ALTER TABLE `location` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -390,4 +394,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-08 13:12:49
+-- Dump completed on 2024-10-08 17:09:46

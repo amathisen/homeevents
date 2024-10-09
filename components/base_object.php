@@ -69,7 +69,7 @@ function write_fk_select($field_name,$default_value=null) {
     $all_the_things = new Base();
     $all_the_things->set_value("table_name",substr($field_name, 0, -3));
     $all_the_things = $all_the_things->get_all();
-    $test_cols = array("name","title");
+    $test_cols = array("name","title","event_activities_id");
     
     foreach($all_the_things as $this_thing) {
         foreach($test_cols as $this_col) {
@@ -77,7 +77,7 @@ function write_fk_select($field_name,$default_value=null) {
                 $select_html .= "<option value='" . $this_thing['id'] . "'";
                 if($this_thing['id'] == $default_value)
                     $select_html .= " SELECTED";
-                $select_html .= ">" . $this_thing[$this_col] . "</option>";
+                $select_html .= ">" . $this_thing[$this_col] . " (" . $this_thing['id'] . ")</option>";
             }
         }
     }
