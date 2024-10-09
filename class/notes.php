@@ -1,6 +1,6 @@
 <?php
 
-require_once('base.php');
+require_once('class/base.php');
 
 class Note extends Base {
     public $user_id = null;

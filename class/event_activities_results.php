@@ -1,6 +1,6 @@
 <?php
 
-require_once('base.php');
+require_once('class/base.php');
 
 class EventActivitiesResults extends Base {
     public $event_activities_id = null;
@@ -16,7 +16,7 @@ class EventActivitiesResults extends Base {
         if(!(int)$this->id > 0)
             return null;
 
-        require_once('event_activities_results_objects.php');
+        require_once('class/event_activities_results_objects.php');
 
         $results_array = array();
         $db2 = new Database();

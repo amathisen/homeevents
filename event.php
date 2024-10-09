@@ -6,15 +6,17 @@ require_once('class/event.php');
 
 $event_id = get_form_value('event_id');
 $this_event = new Event($event_id);
-$db_tmp = new Database();
 
 if(isset($this_event->title))
     $page_title = $this_event->title . " | " . $this_event->date;
-    
+else
+    $page_title = "???";
+
 require_once('header.php');
 
 if(!$this_event || !isset($this_event->id) || $this_event->id != $event_id) {
-    echo "No such event";
+    echo "No such event.";
+    require_once('footer.php');
     exit;
 }
 

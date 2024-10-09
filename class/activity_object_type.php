@@ -1,6 +1,6 @@
 <?php
 
-require_once('base.php');
+require_once('class/base.php');
 
 class ActivityObjectType extends Base {
     public $name = null;

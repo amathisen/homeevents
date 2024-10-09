@@ -78,7 +78,7 @@ class Database {
     }
     
     public function write_note($user_id,$object_type_id,$object_id,$note_text,$date_override=null) {
-        require_once('notes.php');
+        require_once('class/notes.php');
         $new_note = new Note();
         $new_note->set_value('user_id',$user_id);
         $new_note->set_value('object_type_id',$object_type_id);

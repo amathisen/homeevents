@@ -1,6 +1,6 @@
 <?php
 
-require_once('base.php');
+require_once('class/base.php');
 
 class Event extends Base {
     public $location_id = null;
@@ -16,7 +16,7 @@ class Event extends Base {
         if(!(int)$this->location_id > 0)
             return null;
         
-        require_once('location.php');
+        require_once('class/location.php');
         
         $tmp_location = new Location($this->location_id);
         
@@ -24,7 +24,7 @@ class Event extends Base {
     }
     
     public function get_users() {
-        require_once('user.php');
+        require_once('class/user.php');
         $users_list = array();
         $db2 = new Database();
         $sql_to_run = "SELECT id FROM user WHERE id IN(SELECT user_id FROM event_users WHERE event_id = " . $this->id . ")";
@@ -40,7 +40,7 @@ class Event extends Base {
     }
     
     public function get_event_activities() {
-        require_once('event_activities.php');
+        require_once('class/event_activities.php');
 
         $db2 = new Database();
         $event_activities = array();

@@ -1,6 +1,6 @@
 <?php
 
-require_once('base.php');
+require_once('class/base.php');
 
 class EventActivitiesResultsObjects extends Base {
     public $event_activities_results_id = null;
@@ -15,7 +15,7 @@ class EventActivitiesResultsObjects extends Base {
         if(!(int)$this->activity_object_id > 0)
             return null;
         
-        require_once('activity_object.php');
+        require_once('class/activity_object.php');
         $this_activity = new ActivityObject($this->activity_object_id);
         
         return $this_activity;

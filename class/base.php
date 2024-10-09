@@ -12,9 +12,10 @@ class Base {
     
     //Pass in an activity ID to populate values for this object with that activity
     public function set_values_by_id($base_id) {
-        require_once('db.php');
+        require_once('class/db.php');
         $db = new Database();
-        if($base_id == null || !is_int($base_id) || $base_id < 0)
+
+        if($base_id == null || !is_int($base_id) || (int)$base_id < 0)
             return false;
 
         $db_obj = $db->get_first_result("SELECT * FROM " . $this->table_name . " WHERE id = " . (int)$base_id);
@@ -43,16 +44,25 @@ class Base {
         if($this->table_name == null)
             return false;
 
-        require_once('db.php');
+        $all_objects = array();
+        require_once('class/db.php');
         $db = new Database();
         $sql_to_run = "SELECT * FROM " . $this->table_name;
         
         if($sort_by != NULL)
             $sql_to_run .= " ORDER BY " . $sort_by;
-        
         $all_the_objects = $db->runSQL($sql_to_run);
+        
+        foreach($all_the_objects as $this_object) {
+            $class_name = $this::class;
+            $tmp = new $class_name($this_object['id']);
+            if($tmp->id == $this_object['id'])  {
+                array_push($all_objects,$tmp);
+            }
+        }
+        
         $db->close();
-        return $all_the_objects;
+        return $all_objects;
         
     }
     
@@ -61,7 +71,7 @@ class Base {
     }
     
     public function add_note($note_text,$date_override=null) {
-        require_once('db.php');
+        require_once('class/db.php');
         $db = new Database();
         $user_id = 1;
         $object_type_id = $db->get_single_value('object_type','id','base_table_name',$this->table_name);
@@ -102,7 +112,7 @@ class Base {
     
     public function save($delete=false) {
 
-        require_once('db.php');
+        require_once('class/db.php');
         $db = new Database();
         $table_data = $db->get_schema($this->table_name);
         
