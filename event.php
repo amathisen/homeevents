@@ -21,16 +21,13 @@ if(!$this_event || !isset($this_event->id) || $this_event->id != $event_id) {
 }
 
 $this_location = $this_event->get_associated_result('location');
-$event_users_list = $this_event->get_referring_results('event_users');
 $event_activities_list = $this_event->get_referring_results('event_activities');
-$users_list = array();
+$users_list = $this_event->get_referring_results_by_link('event_users','user');
 
 echo "<center><h1>" . $this_event->title . " - " . $this_event->date . "</h1>";
 echo "<h2>" . $this_location->name . "</h2><h3>";
-foreach($event_users_list as $this_user) {
-    $tmp_user = $this_user->get_associated_result('user');
-    array_push($users_list,$tmp_user);
-    echo $tmp_user->name . " ";
+foreach($users_list as $this_user) {
+    echo "<a href = 'user.php?user_id=" . $this_user->id . "'>" . $this_user->name . "</a> ";
 }
 echo "</h3></center>";
 

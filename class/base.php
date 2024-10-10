@@ -194,6 +194,17 @@ class Base {
         
         return $results_array;
     }
+    
+    public function get_referring_results_by_link($base_parent,$link_table,$second_test=null) {
+        $link_list = $this->get_referring_results($base_parent,$second_test);
+        $results_list = array();
+        foreach($link_list as $this_obj) {
+            $tmp_obj = $this_obj->get_associated_result($link_table);
+            array_push($results_list,$tmp_obj);
+        }
+        
+        return $results_list;
+    }
 }
 
 ?>

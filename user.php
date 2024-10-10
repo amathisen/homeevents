@@ -19,13 +19,7 @@ if(!$this_user || !isset($this_user->id) || $this_user->id != $user_id) {
     exit;
 }
 
-$event_list = $this_user->get_referring_results('event_users');
-$events = array();
-foreach($event_list as $this_event) {
-    $tmp_event = $this_event->get_associated_result('event');
-    array_push($events,$tmp_event);
-}
-
+$events = $this_user->get_referring_results_by_link('event_users','event');
 echo "<center><h1>" . $this_user->name . "</h1></center>";
 echo "<table name='user_events_table'>";
 foreach($events as $this_event) {

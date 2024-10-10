@@ -1,7 +1,7 @@
 <?php
 
 $page_title = 'Home';
-require_once('class/db.php');
+
 require_once('header.php');
 require_once('class/object_type.php');
 require_once('class/event.php');
