@@ -153,6 +153,47 @@ class Base {
             $db->runSQL($upd_sql);
         $db->close();
     }
+    
+    public function get_associated_result($base_fk_field) {
+        $base_field_name = $base_fk_field . '_id';
+        if(!(int)$this->$base_field_name > 0)
+            return null;
+
+        require_once('class/db.php');
+        require_once('class/object_type.php');
+        $db2 = new Database();
+        $class_name = str_replace(" ","",$db2->get_single_value('object_type','name','base_table_name',$base_fk_field));
+
+        require_once('class/' . $base_fk_field . '.php');
+        $associated_result = new $class_name($this->$base_field_name);
+        
+        return $associated_result;
+    }
+
+    public function get_referring_results($base_parent,$second_test=null) {
+        if(!(int)$this->id > 0)
+            return null;
+
+        require_once('class/db.php');
+        require_once('class/' . $base_parent . '.php');
+
+        $results_array = array();
+        $db2 = new Database();
+        $sql_to_run = "SELECT id FROM " . $base_parent . " WHERE " . $this->table_name . "_id = " . $this->id;
+        if($second_test != null && is_array($second_test) && count($second_test) == 2)
+            $sql_to_run .= " AND " . $second_test[0] . " = '" . $second_test[1] . "'";
+        $results_list = $db2->runSQL($sql_to_run);
+        $class_name = str_replace(" ","",$db2->get_single_value('object_type','name','base_table_name',$base_parent));
+
+        foreach($results_list as $this_result) {
+            if(!(int)$this_result['id'] > 0)
+                continue;
+            $tmp_result = new $class_name($this_result['id']);
+            array_push($results_array,$tmp_result);
+        }
+        
+        return $results_array;
+    }
 }
 
 ?>

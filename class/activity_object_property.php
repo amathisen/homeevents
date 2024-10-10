@@ -12,16 +12,6 @@ class ActivityObjectProperty extends Base {
         parent::__construct($initial_id);
     }
 
-    public function get_activity_object() {
-        if(!(int)$this->activity_object_id > 0)
-            return null;
-        
-        require_once('class/activity_object.php');
-        $this_activity = new ActivityObject($this->activity_object_id);
-        
-        return $this_activity;
-    }
-    
 }
 
 ?>
