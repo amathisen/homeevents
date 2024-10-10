@@ -17,10 +17,9 @@ class Event extends Base {
             return null;
         
         require_once('class/location.php');
+        $location = new Location($this->location_id);
         
-        $tmp_location = new Location($this->location_id);
-        
-        return $tmp_location;
+        return $location;
     }
     
     public function get_users() {

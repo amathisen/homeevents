@@ -8,6 +8,16 @@ require_once('class/event.php');
 require_once('class/user.php');
 
 
+require_once('class/location.php');
+$tmp = new Location();
+$tmp = $tmp->get_all();
+foreach($tmp as $this_tmp) {
+    $tmp2 = $this_tmp->get_events();
+    print_r($tmp2);
+    echo "<br><br>";
+}
+
+
 $all_objects = new ObjectType();
 $all_objects = $all_objects->get_all(sort_by:"name");
 echo "<table>";
