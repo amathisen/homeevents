@@ -26,6 +26,7 @@ $users_list = $this_event->get_referring_results_by_link('event_users','user');
 
 echo "<center><h1>" . $this_event->title . " - " . $this_event->date . "</h1>";
 echo "<h2>" . $this_location->name . "</h2><h3>";
+
 foreach($users_list as $this_user) {
     echo "<a href = 'user.php?user_id=" . $this_user->id . "'>" . $this_user->name . "</a> ";
 }

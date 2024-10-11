@@ -205,6 +205,52 @@ class Base {
         
         return $results_list;
     }
+    
+    public function write_form_field($field_name,$id_value = "",$editable=false) {
+        
+        $html_string = array("<b>" . $field_name ."</b>","");
+        $field_identifier = $field_name . "_" . $this->id;
+        if($id_value != "")
+            $field_identifier .= "_" . $id_value;
+        
+        if(!str_ends_with($field_name,"_id")) {
+            $html_string[1] = "<input type='text' name='" . $field_identifier . "' id='" . $field_identifier . "'";
+            if(isset($this->$field_name))
+                $html_string[1] .= " value='" . $this->$field_name . "'";
+            if($editable != true || $field_name == "id")
+                $html_string[1] .= " readonly='readonly'";
+            if($field_name == "id")
+                $html_string[1] .= " size='5'";
+            $html_string[1] .= ">";
+        } else {
+            $html_string[1] = "<select name='" . $field_identifier . "' id='" . $field_identifier . "'";
+            if($editable != true)
+                $html_string[1] .= " disabled";
+            $html_string[1] .= ">";
+            $base_name = substr($field_name, 0, -3);
+            $db2 = new Database();
+            $class_name = str_replace(" ","",$db2->get_single_value('object_type','name','base_table_name',$base_name));
+            require_once('class/' . $base_name . '.php');
+            $all_the_things = new $class_name();
+            $all_the_things = $all_the_things->get_all();
+            $test_cols = array("name","title","event_activities_id");
+ 
+            foreach($all_the_things as $this_thing) {
+                $html_string[1] .= "<option value='" . $this_thing->id . "'";
+                foreach($test_cols as $this_col) {
+                    if(isset($this_thing->$this_col))
+                        $option_text = $this_thing->$this_col;
+                }
+                if($this_thing->id == $this->$field_name)
+                    $html_string[1] .=  " selected";;
+                $html_string[1] .= ">" . $option_text . "</option>";
+            }
+    
+            $html_string[1] .= "</select>";
+        }
+        
+        return $html_string;
+    }
 }
 
 ?>

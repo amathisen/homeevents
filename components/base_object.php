@@ -89,21 +89,7 @@ function write_fk_select($field_name,$default_value=null) {
 
 function write_data($base_obj,$specific_obj,$mode,$edited=null) {
     if($mode != "new" && ($specific_obj == null || !isset($specific_obj->id) || (int)$specific_obj->id <= 0)) {
-        $class_name = str_replace(" ","",$base_obj->name);
-        $all_the_things = new $class_name();
-        $all_the_things = $all_the_things->get_all();
-        
-        echo "<table>";
-        foreach($all_the_things as $this_thing) {
-            echo "<tr>";
-            echo "<td><a href = 'view.php?object_type_id=" . $base_obj->id . "&object_id=" . $this_thing->id . "&mode=edit'>Edit</a></td>";
-            echo "<td><a href = 'view.php?object_type_id=" . $base_obj->id . "&object_id=" . $this_thing->id . "&mode=view'>View</a></td>";
-            foreach($this_thing as $key => $value)
-                echo "<td><b>" . $key . "</b></td><td>" . $value . "</td>";
-            echo "</tr>";
-        }
-        echo "<tr><td><a href = 'view.php?mode=new&object_type_id=" . $base_obj->id . "'>Add New</td></tr>";
-        echo "</table>";
+
     } else {
         if($mode == "edit" || $mode == "new") {
             $mode == "edit" ? $button_text = "Update" : $button_text = "Create New";
