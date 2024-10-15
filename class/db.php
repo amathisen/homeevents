@@ -81,8 +81,8 @@ class Database {
         require_once('class/blank.php');
         $new_note = new Blank('notes');
         $new_note->set_value('user_id',$user_id);
-        $new_note->set_value('object_type_id',$object_type_id);
-        $new_note->set_value('object_id',$object_id);
+        $new_note->set_value('object_type',$object_type);
+        $new_note->set_value('object_identifier',$object_id);
         $new_note->set_value('note_text',$note_text);
         if($date_override != null)
             $new_note->set_value('date',$date_override);

@@ -318,12 +318,11 @@ CREATE TABLE `notes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `date` datetime DEFAULT CURRENT_TIMESTAMP,
-  `object_type_id` int(11) DEFAULT NULL,
-  `object_id` int(11) DEFAULT NULL,
+  `object_type` varchar(90) DEFAULT NULL,
+  `object_identifier` int(11) DEFAULT NULL,
   `note_text` mediumtext,
   PRIMARY KEY (`id`),
-  KEY `user_id_idx` (`user_id`),
-  KEY `object_type_id_idx` (`object_type_id`)
+  KEY `user_id_idx` (`user_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
