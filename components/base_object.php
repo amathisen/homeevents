@@ -3,13 +3,10 @@
 $base_obj = $specific_obj = $mode = $edited = null;
 
 function get_initial_values($object_type=null,$object_id=null) {
-    require_once('class/db.php');
     require_once('class/blank.php');
 
     $object_type = get_form_value('object_type');
     $object_id = get_form_value('object_id');
-
-    $db = new Database();
 
     global $base_obj,$specific_obj,$mode,$edited;
 
@@ -26,8 +23,6 @@ function get_initial_values($object_type=null,$object_id=null) {
         $specific_obj->save("DELETE");
         $specific_obj = new Blank($specific_obj->get_value("table_name"));
     }
-
-    $db->close();
 }
 
 function get_page_title($level1,$level2) {

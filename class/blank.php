@@ -76,31 +76,25 @@ class Blank {
     }
     
     public function add_note($note_text,$date_override=null) {
-        require_once('class/db.php');
-        $db = new Database();
         $user_id = 1;
-        $object_type_id = $db->get_single_value('object_type','id','base_table_name',$this->table_name);
-        $db->write_note($user_id,$object_type_id,$this->id,$note_text,$date_override);
+        $db->write_note($user_id,$this->table_name,$this->id,$note_text,$date_override);
         $db->close();
         
     }
     
-    public function get_fk_value($base_value) {
+    public function get_fk_value($base_value,$return_columns=array("name","title")) {
         $tmp = $this->get_value($base_value);
         if(!str_ends_with($base_value,"_id") || !$tmp)
             return false;
         
-        $db2 = new Database();
+        $fk_obj = new Blank(substr($base_value, 0, -3),$tmp);
         $tmp_value = null;
-        $test_cols = array("name","title");
         
-        foreach($test_cols as $this_column) {
-            $tmp_value = $db2->get_single_value(substr($base_value, 0, -3),$this_column,'id',$tmp);
-            if($tmp_value != null)
+        foreach($return_columns as $this_column) {
+            $tmp_value = $fk_obj->get_value($this_column);
+            if($tmp_value)
                 break;
         }
-        
-        $db2->close();
 
         return $tmp_value;
         
@@ -219,7 +213,6 @@ class Blank {
                 $html_string[1] .= " disabled";
             $html_string[1] .= ">";
             $base_name = substr($field_name, 0, -3);
-            require_once('class/blank.php');
             $all_the_things = new Blank($base_name);
             $all_the_things = $all_the_things->get_all();
             $test_cols = array("name","title","event_activities_id");

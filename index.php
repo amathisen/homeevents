@@ -6,16 +6,10 @@ require_once('header.php');
 require_once('class/blank.php');
 require_once('class/db.php');
 
-$testObj = new Blank('user',9);
-$testAssoc = $testObj->get_referring_results_by_link('event_users','event');
-print_r($testObj);
-echo "<br>";
-print_r($testAssoc);
-echo "<br>";
 $db3 = new Database();
 $tables = $db3->get_schema();
 
-echo "<br /><hr><br /><table>";
+
 echo "<table>";
 
 foreach($tables as $this_table) {
