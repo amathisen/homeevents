@@ -1,11 +1,11 @@
 <?php
 
 require_once('components/base_object.php');
-require_once('class/event.php');
+require_once('class/blank.php');
 
 
 $event_id = get_form_value('event_id');
-$this_event = new Event($event_id);
+$this_event = new Blank("event",$event_id);
 
 if(isset($this_event->title))
     $page_title = $this_event->title . " | " . $this_event->date;

@@ -78,8 +78,8 @@ class Database {
     }
     
     public function write_note($user_id,$object_type_id,$object_id,$note_text,$date_override=null) {
-        require_once('class/notes.php');
-        $new_note = new Note();
+        require_once('class/blank.php');
+        $new_note = new Blank('notes');
         $new_note->set_value('user_id',$user_id);
         $new_note->set_value('object_type_id',$object_type_id);
         $new_note->set_value('object_id',$object_id);
@@ -90,9 +90,19 @@ class Database {
     }
     
     //Pass in a table name. Return an array with elements that are arrays of the fields and their properties
-    public function get_schema($table_name) {
-        $table_data = $this->runSQL("DESC " . $table_name);
-        return $table_data;
+    //If no argument is passed, return a list of table names
+    public function get_schema($table_name=null) {
+        
+        if($table_name != null) {
+            $table_data = $this->runSQL("DESC " . $table_name);
+            return $table_data;
+        }
+        $tables = array();
+        $schema_data = $this->runSQL("SELECT TABLE_NAME FROM `INFORMATION_SCHEMA`.`TABLES` WHERE table_type = 'BASE TABLE' AND TABLE_SCHEMA = 'homeevents' ORDER BY TABLE_NAME");
+        foreach($schema_data as $this_table) {
+            array_push($tables,$this_table['TABLE_NAME']);
+        }
+        return $tables;
     }
     
     public function get_last_insert_id() {

@@ -1,10 +1,10 @@
 <?php
 
 require_once('components/base_object.php');
-require_once('class/user.php');
+require_once('class/blank.php');
 
 $user_id = get_form_value('user_id');
-$this_user = new User($user_id);
+$this_user = new Blank("user",$user_id);
 
 isset($this_user->name) ? $page_title = "User " . $this_user->name : $page_title = "User ??";
 require_once('header.php');

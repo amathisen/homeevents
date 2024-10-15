@@ -2,38 +2,29 @@
 
 $base_obj = $specific_obj = $mode = $edited = null;
 
-function get_initial_values($object_type_id=null,$object_id=null) {
+function get_initial_values($object_type=null,$object_id=null) {
     require_once('class/db.php');
-    require_once('class/object_type.php');
+    require_once('class/blank.php');
 
-    $object_type_id = get_form_value('object_type_id');
+    $object_type = get_form_value('object_type');
     $object_id = get_form_value('object_id');
 
     $db = new Database();
 
-    if($object_type_id == null) {
-        $object_type_id = $db->get_single_value('object_type','id','base_table_name','object_type');
-    }
-
     global $base_obj,$specific_obj,$mode,$edited;
 
-    $base_obj = new ObjectType($object_type_id);
+    $base_obj = new Blank($object_type);
+    $specific_obj = new Blank($object_type,(int)$object_id);
 
     $mode = get_form_value('mode');
     if($mode != "edit" && $mode != "new" && $mode != "delete")
         $mode = "view";
 
     $edited = get_form_value('edited');
-        
-    if(file_exists('class/' . $base_obj->base_table_name . '.php'))
-        require_once('class/' . $base_obj->base_table_name . '.php');
-    $class_name = $base_obj->table_name_to_class($base_obj->base_table_name);
-    if(class_exists($class_name))
-        $specific_obj = new $class_name($object_id);
 
     if(isset($specific_obj->id) && (int)$specific_obj->id > 0 && get_form_value('delete') === 'delete_me') {
         $specific_obj->save("DELETE");
-        $specific_obj = new $class_name();
+        $specific_obj = new Blank($specific_obj->get_value("table_name"));
     }
 
     $db->close();
@@ -41,13 +32,13 @@ function get_initial_values($object_type_id=null,$object_id=null) {
 
 function get_page_title($level1,$level2) {
     $this_title = '';
-    if(isset($level1->name))
-        $this_title .= $level1->name;
+    if($level1->get_value("table_name"))
+        $this_title .= ucfirst($level1->get_value("table_name"));
         
-    if(isset($level2->name))
-        $this_title .= " | " . $level2->name;
-    if(isset($level2->title))
-        $this_title .= " | " . $level2->title;
+    if($level2->get_value("name"))
+        $this_title .= " | " . ucfirst($level2->get_value("name"));
+    if($level2->get_value("title"))
+        $this_title .= " | " . ucfirst($level2->get_value("title"));
         
     return $this_title;
     
@@ -64,11 +55,11 @@ function get_form_value($value_name) {
 }
 
 function write_fk_select($field_name,$default_value=null) {
+    $class_name = substr($field_name, 0, -3);
     $select_html = "<select name='" . $field_name . "' id='" . $field_name . "'>";
-    $db = new Database();
-    $class_name = str_replace(" ","",$db->get_single_value('object_type','name','base_table_name',substr($field_name, 0, -3)));
-    require_once('class/' . substr($field_name, 0, -3) . '.php');
-    $all_the_things = new $class_name();
+    require_once('class/blank.php');
+    
+    $all_the_things = new Blank($class_name);
     $all_the_things = $all_the_things->get_all();
     $test_cols = array("name","title","event_activities_id");
     
@@ -142,7 +133,7 @@ function write_data($base_obj,$specific_obj,$mode,$edited=null) {
            echo "</table>";
         }
     
-        echo "<br /><br /><a href = 'view.php?object_type_id=" . $base_obj->id . "'>View All " . $base_obj->name . "</a>";
+        echo "<br /><br /><a href = 'view.php?object_type=" . $base_obj->get_value('table_name') . "'>View All " . $base_obj->get_value('table_name') . "</a>";
     }
 }
 

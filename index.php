@@ -3,20 +3,27 @@
 $page_title = 'Home';
 
 require_once('header.php');
-require_once('class/object_type.php');
-require_once('class/event.php');
-require_once('class/user.php');
+require_once('class/blank.php');
+require_once('class/db.php');
 
-$all_objects = new ObjectType();
-$all_objects = $all_objects->get_all(sort_by:"name");
+$testObj = new Blank('user',9);
+$testAssoc = $testObj->get_referring_results_by_link('event_users','event');
+print_r($testObj);
+echo "<br>";
+print_r($testAssoc);
+echo "<br>";
+$db3 = new Database();
+$tables = $db3->get_schema();
+
+echo "<br /><hr><br /><table>";
 echo "<table>";
 
-foreach($all_objects as $this_object) {
-    echo "<tr><td><a href = 'view.php?object_type_id=" . $this_object->id . "'>" . $this_object->name . "</a></td><td><a href = 'view.php?mode=new&object_type_id=" . $this_object->id . "'>Add New</td></tr>";
+foreach($tables as $this_table) {
+    echo "<tr><td><a href = 'view.php?object_type=" . $this_table . "'>" . $this_table . "</a></td><td><a href = 'view.php?mode=new&object_type=" . $this_table . "'>Add New</td></tr>";
 }
 echo "</table>";
 
-$all_events = new Event();
+$all_events = new Blank('event');
 $all_events = $all_events->get_all(sort_by:"date");
 echo "<br /><hr><br /><table>";
 foreach($all_events as $this_event) {
@@ -24,7 +31,7 @@ foreach($all_events as $this_event) {
 }
 echo "</table>";
 
-$all_users = new User();
+$all_users = new Blank('user');
 $all_users = $all_users->get_all(sort_by:"name");
 echo "<br /><hr><br /><table>";
 foreach($all_users as $this_user) {
