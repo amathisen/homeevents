@@ -77,7 +77,7 @@ class Database {
             return false;
     }
     
-    public function write_note($user_id,$object_type_id,$object_id,$note_text,$date_override=null) {
+    public function write_note($user_id,$object_type,$object_id,$note_text,$date_override=null) {
         require_once('class/blank.php');
         $new_note = new Blank('notes');
         $new_note->set_value('user_id',$user_id);

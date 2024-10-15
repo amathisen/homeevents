@@ -218,21 +218,6 @@ CREATE TABLE `notes` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `object_type`
---
-
-DROP TABLE IF EXISTS `object_type`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `object_type` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(90) DEFAULT NULL,
-  `base_table_name` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `user`
 --
 

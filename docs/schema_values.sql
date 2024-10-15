@@ -336,31 +336,6 @@ LOCK TABLES `notes` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `object_type`
---
-
-DROP TABLE IF EXISTS `object_type`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `object_type` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(90) DEFAULT NULL,
-  `base_table_name` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `object_type`
---
-
-LOCK TABLES `object_type` WRITE;
-/*!40000 ALTER TABLE `object_type` DISABLE KEYS */;
-INSERT INTO `object_type` VALUES (10,'Activity','activity'),(11,'Activity Result','activity_result'),(12,'Event','event'),(13,'Event Activities','event_activities'),(14,'Event Activities Results','event_activities_results'),(15,'Event Users','event_users'),(16,'Location','location'),(17,'Notes','notes'),(18,'Object Type','object_type'),(19,'User','user'),(20,'Activity Object Type','activity_object_type'),(21,'Activity Object','activity_object'),(22,'Activity Object Property','activity_object_property'),(23,'Event Activities Results Objects','event_activities_results_objects');
-/*!40000 ALTER TABLE `object_type` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `user`
 --
 
