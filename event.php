@@ -100,7 +100,7 @@ echo "</form>";
 
 echo "<br /><hr /><br />";
 echo "<h3>Missing Results</h2>";
-echo "Hide Mulligan<input type='checkbox' onchange='change_mulligan_visibility()'>";
+echo "Hide Mulligan<input type='checkbox' onchange='change_visibility(\"Mulligan_row\")'>";
 echo "<table border='1'>";
 foreach($missing_results as $this_result) {
     $this_event_activity = new Blank('event_activities',$this_result[0]);

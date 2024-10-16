@@ -1,1 +1,13 @@
-function change_mulligan_visibility() {  var mulligan_rows = document.querySelectorAll('.Mulligan_row'); for(var i=0; i<mulligan_rows.length; i++){ if(mulligan_rows[i].style.visibility != 'hidden') { mulligan_rows[i].style.visibility = 'hidden'; mulligan_rows[i].style.display = 'none'; } else { mulligan_rows[i].style.visibility = 'visible'; mulligan_rows[i].style.display = ''; } }}
+function change_visibility(class_name) {
+    var target_objs = document.querySelectorAll('.' + class_name);
+
+    for(var i=0; i<target_objs.length; i++){
+        if(target_objs[i].style.visibility != 'hidden') {
+            target_objs[i].style.visibility = 'hidden';
+            target_objs[i].style.display = 'none';
+        } else {
+            target_objs[i].style.visibility = 'visible'; 
+            target_objs[i].style.display = ''; 
+        } 
+    }
+}

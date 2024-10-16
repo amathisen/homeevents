@@ -30,6 +30,4 @@ if($specific_obj->id  == 0 && $mode != "new") {
     write_data($base_obj,$specific_obj,$mode,$edited);
 }
 
-?>
-
-<?php require_once('footer.php'); ?>
+require_once('footer.php'); ?>
