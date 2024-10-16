@@ -46,8 +46,10 @@ foreach($event_activities_list as $this_activity) {
         $score_value = isset($this_result->result_value) ? $this_result->result_value : '';
         $display_name = $this_user->name;
         $results_object = $this_result->get_referring_results('event_activities_results_objects');
+        if(isset($results_object[0]))
+            $results_object = $results_object[0];
         if(isset($results_object->id) && (int)$results_object->id > 0) {
-            $activity_object = $results_object->get_activity_object();
+            $activity_object = new Blank('activity_object',$results_object->activity_object_id);
             $extra_name = isset($activity_object->name) ? " (" . $activity_object->name . ")": '';
             $display_name .= $extra_name;
         }
