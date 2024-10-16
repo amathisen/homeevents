@@ -46,7 +46,7 @@ class Blank {
         return false;
     }
     
-    public function get_all($sort_by=NULL) {
+    public function get_all($limit_by=null,$sort_by=null) {
         if($this->table_name == null)
             return false;
 
@@ -55,7 +55,9 @@ class Blank {
         $db = new Database();
         $sql_to_run = "SELECT id FROM " . $this->table_name;
         
-        if($sort_by != NULL)
+        if($limit_by != null)
+            $sql_to_run .= " WHERE " . $limit_by;
+        if($sort_by != null)
             $sql_to_run .= " ORDER BY " . $sort_by;
         $all_the_objects = $db->runSQL($sql_to_run);
 
