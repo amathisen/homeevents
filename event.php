@@ -3,7 +3,6 @@
 require_once('components/base_object.php');
 require_once('class/blank.php');
 
-
 $event_id = get_form_value('event_id');
 $this_event = new Blank("event",$event_id);
 
@@ -20,8 +19,6 @@ if(!$this_event || !isset($this_event->id) || $this_event->id != $event_id) {
     exit;
 }
 
-echo "<script src='scripts/base.js'></script>";
-
 $this_location = $this_event->get_associated_result('location');
 $event_activities_list = $this_event->get_referring_results('event_activities');
 $users_list = $this_event->get_referring_results_by_link('event_users','user');
@@ -31,7 +28,7 @@ echo "<center><h1>" . $this_event->title . " - " . $this_event->date . "</h1>";
 echo "<h2>" . $this_location->name . "</h2><h3>";
 
 foreach($users_list as $this_user) {
-    echo "<a href = 'user.php?user_id=" . $this_user->id . "'>" . $this_user->name . "</a> ";
+    echo get_href($this_user) . "&nbsp";
     array_push($user_ids,$this_user->id);
 }
 echo "</h3></center>";
@@ -50,13 +47,13 @@ foreach($event_activities_list as $this_activity) {
             continue;
         }
         $score_value = isset($this_result->result_value) ? $this_result->result_value : '';
-        $display_name = $this_user->name;
+        $display_name = get_href($this_user);
         $results_object = $this_result->get_referring_results('event_activities_results_objects');
         if(isset($results_object[0]))
             $results_object = $results_object[0];
         if(isset($results_object->id) && (int)$results_object->id > 0) {
             $activity_object = new Blank('activity_object',$results_object->activity_object_id);
-            $extra_name = isset($activity_object->name) ? " (" . $activity_object->name . ")": '';
+            $extra_name = isset($activity_object->name) ? " (" . get_href($activity_object) . ")": '';
             $display_name .= $extra_name;
         }
             

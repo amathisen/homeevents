@@ -27,7 +27,7 @@ array_push($stats_html,"<b>Events Attended:</b> " . count($events) . "<br /><br 
 foreach($events as $this_event) {
     $loopcount = 0;
     $this_html = "<table name='user_events_table_" . $this_event->id . "' border='1'>";
-    $this_html .= "<tr><td><a href = 'event.php?event_id=" . $this_event->id . "'>" . $this_event->title . "</a></td><td>" . $this_event->date . "</td></tr>";
+    $this_html .= "<tr><td>" . get_href($this_event) . "</td><td>" . $this_event->date . "</td></tr>";
     $event_activities = $this_event->get_referring_results('event_activities');
     foreach($event_activities as $this_activity) {
         ($loopcount % 2) ? $bgcolor = "82CFDF" : $bgcolor = "FFFFFF";
@@ -37,10 +37,10 @@ foreach($events as $this_event) {
             $result_value = $result[0]->result_value;
             $results_object = $result[0]->get_referring_results_by_link('event_activities_results_objects','activity_object');
             if(isset($results_object[0]->name)) {
-                $results_object_name = $results_object[0]->name;
+                $results_object_name = get_href($results_object[0]);
                 if(!isset($results_objects_tracker["activity_object_" . $results_object[0]->id])) {
                     $results_objects_tracker["activity_object_" . $results_object[0]->id] = array();
-                    array_push($results_objects_tracker["activity_object_" . $results_object[0]->id],$results_object[0]->name);
+                    array_push($results_objects_tracker["activity_object_" . $results_object[0]->id],get_href($results_object[0]));
                     array_push($results_objects_tracker["activity_object_" . $results_object[0]->id],-1);
                 }
                 array_push($results_objects_tracker["activity_object_" . $results_object[0]->id],$result_value);

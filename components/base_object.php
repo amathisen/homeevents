@@ -73,6 +73,19 @@ function write_fk_select($field_name,$default_value=null) {
     return $select_html;
 }
 
+function get_href($base_obj) {
+    $href_html = "<a href = '" . $base_obj->get_value('table_name') . ".php?" . $base_obj->get_value('table_name') . "_id=" . $base_obj->id . "'>";
+    $test_properties = array("name","title");
+    foreach($test_properties as $this_property) {
+        if(isset($base_obj->$this_property))
+            $href_html .= $base_obj->$this_property;
+    }
+    
+    $href_html .= "</a>";
+    
+    return $href_html;
+}
+
 function write_data($base_obj,$specific_obj,$mode,$edited=null) {
     if($mode != "new" && ($specific_obj == null || !isset($specific_obj->id) || (int)$specific_obj->id <= 0)) {
 

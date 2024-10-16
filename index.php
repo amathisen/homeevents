@@ -5,6 +5,7 @@ $page_title = 'Home';
 require_once('header.php');
 require_once('class/blank.php');
 require_once('class/db.php');
+require_once('components/base_object.php');
 
 $db3 = new Database();
 $tables = $db3->get_schema();
@@ -21,7 +22,7 @@ $all_events = new Blank('event');
 $all_events = $all_events->get_all(sort_by:"date");
 echo "<br /><hr><br /><table>";
 foreach($all_events as $this_event) {
-    echo "<tr><td><a href = 'event.php?event_id=" . $this_event->id . "'>" . $this_event->title . "</a></td><td>" . $this_event->date . "</td></tr>";
+    echo "<tr><td>" . get_href($this_event) . "</td><td>" . $this_event->date . "</td></tr>";
 }
 echo "</table>";
 
@@ -29,7 +30,15 @@ $all_users = new Blank('user');
 $all_users = $all_users->get_all(sort_by:"name");
 echo "<br /><hr><br /><table>";
 foreach($all_users as $this_user) {
-    echo "<tr><td><a href = 'user.php?user_id=" . $this_user->id . "'>" . $this_user->name . "</a></td></tr>";
+    echo "<tr><td>" . get_href($this_user) . "</td></tr>";
+}
+echo "</table>";
+
+$all_activity_objects = new Blank('activity_object');
+$all_activity_objects = $all_activity_objects->get_all(sort_by:"name");
+echo "<br /><hr><br /><table>";
+foreach($all_activity_objects as $this_activity_object) {
+    echo "<tr><td>" . get_href($this_activity_object) . "</td></tr>";
 }
 echo "</table>";
 
