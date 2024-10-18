@@ -1,5 +1,7 @@
 <?php
 
+#[AllowDynamicProperties]
+
 class Blank {
     public $id = null;
     private $table_name = null;
