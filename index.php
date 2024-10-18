@@ -26,7 +26,7 @@ foreach($all_events as $this_event) {
 }
 echo "</table>";
 
-$all_users = new Blank('user');
+$all_users = new Blank('users');
 $all_users = $all_users->get_all(sort_by:"name");
 echo "<br /><hr><br /><table>";
 foreach($all_users as $this_user) {

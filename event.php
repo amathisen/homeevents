@@ -21,7 +21,7 @@ if(!$this_event || !isset($this_event->id) || $this_event->id != $event_id) {
 
 $this_location = $this_event->get_associated_result('location');
 $event_activities_list = $this_event->get_referring_results('event_activities');
-$users_list = $this_event->get_referring_results_by_link('event_users','user');
+$users_list = $this_event->get_referring_results_by_link('event_users','users');
 $user_ids = array();
 $missing_results = array();
 echo "<center><h1>" . $this_event->title . " - " . $this_event->date . "</h1>";
@@ -39,7 +39,7 @@ foreach($event_activities_list as $this_activity) {
     echo "<table border='1'>";
 
     foreach($users_list as $this_user) {
-        $this_result = $this_activity->get_referring_results('event_activities_results',array('user_id',$this_user->id));
+        $this_result = $this_activity->get_referring_results('event_activities_results',array('users_id',$this_user->id));
         if(isset($this_result[0]))
             $this_result = $this_result[0];
         if(!isset($this_result->id)) {
@@ -64,7 +64,7 @@ foreach($event_activities_list as $this_activity) {
 
 echo "<br /><hr /><br />";
 
-$other_users = new Blank('user');
+$other_users = new Blank('users');
 if(count($users_list))
     $other_users = $other_users->get_all(limit_by:"id NOT IN (" . implode(",",$user_ids) . ")");
 else
@@ -74,7 +74,7 @@ if(count($other_users)) {
     echo "<form name='event_add_user' method='POST' action='processor.php'>";
     echo "<input type='hidden' name='event_id' value='" . $this_event->id . "' />";
     echo "<input type='hidden' name='action' value='add_user_to_event' />";
-    echo "<select name='user_id' id='user_id'>";
+    echo "<select name='users_id' id='users_id'>";
     foreach($other_users as $this_user)
         echo "<option value='" . $this_user->id . "'>" . $this_user->name . "</option>";
     echo "</select>";
@@ -103,11 +103,11 @@ foreach($missing_results as $this_result) {
     $this_event_activity = new Blank('event_activities',$this_result[0]);
     $this_activity = $this_event_activity->get_associated_result('activity');
     $this_activity_object_type = $this_activity->get_referring_results('activity_object_type');
-    $this_user = new Blank('user',$this_result[1]);
+    $this_user = new Blank('users',$this_result[1]);
     echo "<tr class='" . $this_activity->name . "_row'><td>" . $this_event_activity->name . "</td><td>" . $this_activity->name . "</td><td>" . $this_user->name . "</td>";
     echo "<td>";
     echo "<form name='results_form' method='POST' action='processor.php'>";
-    echo "<input type='hidden' name='user_id' value='" . $this_user->id . "' />";
+    echo "<input type='hidden' name='users_id' value='" . $this_user->id . "' />";
     echo "<input type='hidden' name='event_activities_id' value='" . $this_event_activity->id . "' />";
     echo "<input type='hidden' name='action' value='add_user_result_to_event' />";
     if(count($this_activity_object_type)) {

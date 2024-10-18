@@ -3,13 +3,13 @@
 require_once('components/base_object.php');
 require_once('class/blank.php');
 
-$user_id = get_form_value('user_id');
-$this_user = new Blank("user",$user_id);
+$users_id = get_form_value('users_id');
+$this_user = new Blank("users",$users_id);
 
 isset($this_user->name) ? $page_title = "User " . $this_user->name : $page_title = "User ??";
 require_once('header.php');
 
-if(!$this_user || !isset($this_user->id) || $this_user->id != $user_id) {
+if(!$this_user || !isset($this_user->id) || $this_user->id != $users_id) {
     echo "No such user.";
     require_once('footer.php');
     exit;
@@ -32,7 +32,7 @@ foreach($events as $this_event) {
     foreach($event_activities as $this_activity) {
         ($loopcount % 2) ? $bgcolor = "82CFDF" : $bgcolor = "FFFFFF";
         $activity = $this_activity->get_associated_result('activity');
-        $result = $this_activity->get_referring_results('event_activities_results',array('user_id',$this_user->id));
+        $result = $this_activity->get_referring_results('event_activities_results',array('users_id',$this_user->id));
         if(isset($result[0]->result_value)) {
             $result_value = $result[0]->result_value;
             $results_object = $result[0]->get_referring_results_by_link('event_activities_results_objects','activity_object');
