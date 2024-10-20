@@ -41,7 +41,7 @@ if(isset($process_data['form_data_new']['action'])) {
         case 'add_user_result_to_event':
             $event_activities_results = new Blank('event_activities_results');
             $event_activities_results->event_activities_id = $process_data['form_data_new']['event_activities_id'];
-            $event_activities_results->user_ids = $process_data['form_data_new']['users_id'];
+            $event_activities_results->users_id = $process_data['form_data_new']['users_id'];
             $event_activities_results->result_value = $process_data['form_data_new']['result_value'];
             $event_activities_results->save();
             if(isset($process_data['form_data_new']['activity_object_id'])) {
